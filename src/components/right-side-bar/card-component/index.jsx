@@ -7,41 +7,24 @@ import {
     Item,
     Span
 } from './card-component.styles'
+import HeaderComponent from './Header';
+import Content from './Content';
 
 function CardComponent(props) {
     const { tag, articles } = props;
     const classes = useStyles();
     return (
         <div className={classes.Card}>
-            <Header>
-                <H3>{tag}</H3>
-                {tag === "Listings" && (
-                    <a href="/#">
-                        <small>
-                            see all
-                        </small>
-                    </a>
-                )}
-            </Header>
-            <ul>
-                {articles.map((a) => {
-                    return (
-                        <Item key={a.id}>
-                            <a href="#">
-                                {a.mainTitle}
-                            </a>
-                            <br />
-                            <small>
-                                {a.subText}
-                            </small>
-                            {a.newarticle &&
-                                <Span>
-                                    new
-                                </Span>}
-                        </Item>
-                    );
-                })}
-            </ul>
+            <HeaderComponent 
+                H3={H3}
+                Header={Header} 
+                tag={tag}
+            />
+            <Content
+                Item={Item}
+                Span={Span}
+                articles={articles}
+            />
         </div>
     );
 }

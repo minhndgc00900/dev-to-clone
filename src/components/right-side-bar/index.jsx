@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react';
+import { CreatedHomePageContext } from '../../pages/home-page';
 import CardComponent from './card-component';
-import { help, listings, news } from './right-side-bar.configs';
-import { Image, Label, Link, useStyles } from './right-side-bar.styles'
+import { Image, Label, Link, useStyles } from './right-side-bar.styles';
+
 
 function RightSideBar() {
+    const HomePageContext = useContext(CreatedHomePageContext);
     const classes = useStyles();
-
     return (
         <aside className={classes.rightBar}>
             <div className={classes.hackathon}>
@@ -25,11 +26,11 @@ function RightSideBar() {
                 </Label>
             </div>
 
-            <CardComponent tag="Listings" articles={listings} />
+            <CardComponent tag="Listings" articles={HomePageContext.listings} />
 
-            <CardComponent tag="#news" articles={news} />
+            <CardComponent tag="#news" articles={HomePageContext.news} />
 
-             <CardComponent tag="#help" articles={help} />
+            <CardComponent tag="#help" articles={HomePageContext.help} />
         </aside>
     )
 }
