@@ -1,23 +1,33 @@
-import styled from 'styled-components'
-import { FONT_COLOR, HEADER_BG, HEADER_HEIGHT, MAIN_2, MAIN_5, MAIN_A, MAIN_THEME_DARKER } from '../../variable';
+import styled from 'styled-components/macro'
+import { 
+    FONT_COLOR, 
+    HEADER_BG, 
+    HEADER_HEIGHT, 
+    MAIN_2, 
+    MAIN_5, 
+    MAIN_A, 
+    MAIN_THEME_DARKER } from '../../variable';
 import { FiSearch } from "react-icons/fi";
 
 
 export const Wrapper = styled.header`
   max-width: 100%;
-  background-color:#fff;
+  background-color: ${HEADER_BG};
 
   display: flex;
 
   height: 56px;
   padding: 1rem 20rem;
 
-  @media only screen and (max-width:900px){
+  @media only screen and (max-width:1536px){
+    padding: 1rem 8rem;
+  }
+
+  @media only screen and (max-width:1450px){
     position: absolute;
     right: 0;
     left: 0;
-    margin: 0 0.5rem;
-    padding: 1rem 0;
+    padding: 1rem 3rem;
     ul li {
       padding: 1rem;
     }
@@ -126,7 +136,7 @@ export const ProfilePicture = styled.img`
 export const MenuListCotainer = styled.div`
     position: absolute;
     top: ${HEADER_HEIGHT};
-    right: 21rem;
+    right: 10rem;
     left: auto;
     display: ${({ hasMenu }) => !hasMenu ? 'none' : ''};
     background: ${HEADER_BG};
@@ -136,6 +146,10 @@ export const MenuListCotainer = styled.div`
 
     min-width: 250px;
     z-index: 4;
+
+    @media only screen and (max-width:1450px){
+        right: 10px;
+    }
 
     @media only screen and (max-width:640px){
         position: absolute;
@@ -210,7 +224,7 @@ export const HamburgerMenu = styled.div`
         transform: translateY(5px);
     }
 
-    @media only screen and (max-width:1300px){
+    @media only screen and (max-width:768px){
         display: block;
     }
 `

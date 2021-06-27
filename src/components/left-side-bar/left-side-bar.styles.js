@@ -1,16 +1,12 @@
-import styled from 'styled-components'
-import { 
-    MAIN_6,
-    MAIN_7, 
-    MAIN_9, 
-    MAIN_A, 
-    MAIN_THEME_DARKER 
+import styled from 'styled-components/macro'
+import {
+  MAIN_6,
+  MAIN_7,
+  MAIN_9,
+  MAIN_A,
+  MAIN_THEME_DARKER
 } from '../../variable';
 
-
-export const SocialMediaList = styled.div`
-
-`
 
 
 export const LeftBarMenuList = styled.ul`
@@ -36,7 +32,7 @@ export const LeftBarMore = styled.li`
         color: ${MAIN_7};
         padding-left: 5rem;
     };
-    display: ${({more}) => more ? 'none' : ''};
+    display: ${({ more }) => more ? 'none' : ''};
 `;
 
 export const LeftBarMenu = styled.nav`
@@ -54,7 +50,6 @@ export const LeftBarMenu = styled.nav`
       }
 
 
-
       &:hover {
         background-color: ${MAIN_A};
         color: ${MAIN_THEME_DARKER};
@@ -69,8 +64,23 @@ export const LabelName = styled.h3`
 
 `;
 
+export const SocialMediaList = styled.div`
+  display: ${({ more }) => more ? 'flex' : 'none'};
+  padding: 1rem;
+  margin-top: 1rem;
+  a {
+    font-size: 1.5rem;
+    color: ${MAIN_6};
+    margin: 0 0.5rem;
+
+    &:hover {
+      color: ${MAIN_9};
+    }
+  }
+`;
+
 export const ListMore = styled.div`
-    display: ${({more}) => more ? '' : 'none'};
+    display: ${({ more }) => more ? '' : 'none'};
 `;
 
 export const Header = styled.header`
@@ -123,5 +133,43 @@ export const TagList = styled.nav`
 `;
 
 export const LeftBar = styled.aside`
+    @media only screen and (max-width:768px){
+      display: none;
+  }
+`;
 
+export const HamburgerContentItem = styled.div`
+  padding: 0.5rem;
+  ul li {
+    line-height: 1.6;
+  }
+`
+
+export const HamburgerContent = styled.div`
+    max-width: 300px;
+    width: 90%;
+    background-color: #fff;
+    height: 100%;
+    overflow-y: auto;
+    z-index: 1000;
+    position: relative;
+`
+export const HamburgerOverLay = styled.div`
+    background-color: black;
+    opacity: 0.5;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 300;
+`
+
+export const Hamburger = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 500;
 `;
