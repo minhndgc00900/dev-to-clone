@@ -1,6 +1,6 @@
 import React from 'react'
 
-function ActicleSkeleton() {
+function ArticleSkeleton() {
     return (
         <div>
             right bar
@@ -8,4 +8,4 @@ function ActicleSkeleton() {
     )
 }
 
-export default ActicleSkeleton
+export default ArticleSkeleton
