@@ -14,6 +14,39 @@ function Content() {
         }, 2000);
     }, []);
 
+    useEffect(() => {
+        const fetchAgain = () => {
+            if (articles !== null) {
+                fetch("https://dev.to/api/articles")
+                    .then(res => res.json())
+                    .then(results => setArticles([...articles, ...results]));
+            }
+        };
+
+        const handleScroll = () => {
+            const html = document.documentElement;
+            const body = document.body;
+            const windowheight =
+                "innerHeight" in window ? window.innerHeight : html.offsetHeight;
+
+            const docHeight = Math.max(
+                body.scrollHeight,
+                body.offsetHeight,
+                html.clientHeight,
+                html.scrollHeight,
+                html.offsetHeight
+            );
+
+            const windowBottom = windowheight + window.pageYOffset;
+            if (windowBottom >= docHeight) {
+                console.log("we reached the bottom");
+                fetchAgain();
+            }
+        };
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, [articles]);
+
     return (
         <main className={classes.mainContent}>
             <header className={classes.headerContent}>
