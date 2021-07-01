@@ -1,25 +1,26 @@
 import React, { useEffect, useState } from 'react'
 import { useStyles } from './content.styles'
 import ArticleComponent from './article-component/index'
+import { getArticles } from '../../services/articles';
 
 function Content() {
     const [articles, setArticles] = useState(null);
     const classes = useStyles();
 
     useEffect(() => {
-        setTimeout(async () => {
-            const res = await fetch('http://dev.to/api/articles');
-            const data = await res.json();
-            setArticles(data);
+        setTimeout(() => {
+            getArticles().then(res => {
+                setArticles(res.data);
+            });
         }, 2000);
     }, []);
 
     useEffect(() => {
         const fetchAgain = () => {
             if (articles !== null) {
-                fetch("https://dev.to/api/articles")
-                    .then(res => res.json())
-                    .then(results => setArticles([...articles, ...results]));
+                getArticles().then(res => {
+                    setArticles(prev => [...prev , ...res.data]);
+                });
             }
         };
 

@@ -8,16 +8,24 @@ const instance = axios.create({
     }
 });
 
-const get = async (path = '', param = {}) => {
-    await instance.get(path, param)
+// instance.interceptors.request.use(function (config) {
+//     // Do something before request is sent
+//     return config;
+// }, function (error) {
+//     // Do something with request error
+//     return Promise.reject(error);
+// });
+
+const getRequest = (path = '', param = {}) => {
+    return instance.get(path, param)
         .then(res => res)
-        .catch(err => console.error(err));
+        .catch(err => Promise.reject(err.response ? err.response.data : err));
 }
 
-const post = async (path = '', param = {}) => {
-    await instance.get(path, param)
+const postRequest = (path = '', param = {}) => {
+    return instance.get(path, param)
         .then(res => res)
-        .catch(err => console.error(err));
+        .catch(err => Promise.reject(err.response ? err.response.data : err));
 }
 
-export { get, post};
+export const requestService = { getRequest, postRequest };
