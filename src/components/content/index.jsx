@@ -1,15 +1,24 @@
-import React, { useEffect, useState } from 'react'
-import { useStyles } from './content.styles'
-import ArticleComponent from './article-component/index'
-import { getArticles } from '../../services/articles';
+import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import { getArticlesSelector } from '../../redux/articles/selectors';
+import { getArticles } from '../../redux/articles/actions/index';
+import * as services from '../../services/articles/index';
+import ArticleComponent from './article-component/index';
+import { useStyles } from './content.styles';
 
-function Content() {
+function Content(props) {
+    const {
+        fetchArticle,
+        articlesData
+    } = props;
     const [articles, setArticles] = useState(null);
     const classes = useStyles();
 
     useEffect(() => {
+        fetchArticle();
         setTimeout(() => {
-            getArticles().then(res => {
+            services.getArticles().then(res => {
                 setArticles(res.data);
             });
         }, 2000);
@@ -18,7 +27,7 @@ function Content() {
     useEffect(() => {
         const fetchAgain = () => {
             if (articles !== null) {
-                getArticles().then(res => {
+                services.getArticles().then(res => {
                     setArticles(prev => [...prev , ...res.data]);
                 });
             }
@@ -48,6 +57,8 @@ function Content() {
         return () => window.removeEventListener("scroll", handleScroll);
     }, [articles]);
 
+    console.log(555, articlesData);
+
     return (
         <main className={classes.mainContent}>
             <header className={classes.headerContent}>
@@ -61,6 +72,7 @@ function Content() {
                 </nav>
             </header>
             <div className={classes.articles}>
+                {/* inline conditional expression */}
                 {articles &&
                     articles.map((article, id) => {
                         return <ArticleComponent
@@ -72,4 +84,19 @@ function Content() {
     )
 }
 
-export default Content
+
+Content.propTypes = {
+    // props: PropTypes
+    fetchArticle: PropTypes.any,
+    articlesData: PropTypes.any,
+}
+
+const mapStateToProps = () => ({
+    articlesData: getArticlesSelector,        
+})
+
+const mapDispatchToProps =  {
+    fetchArticle: param => getArticles(param = []),
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Content)
