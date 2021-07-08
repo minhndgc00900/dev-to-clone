@@ -17,20 +17,24 @@ function Content(props) {
     const classes = useStyles();
 
     useEffect(() => {
-        fetchArticle();
         setTimeout(() => {
-            services.getArticles().then(res => {
-                setArticles(res.data);
-            });
+            fetchArticle();
         }, 2000);
     }, []);
 
     useEffect(() => {
+        if(articlesData){
+            setArticles(articlesData);
+        }
+    }, [articlesData])
+
+    useEffect(() => {
         const fetchAgain = () => {
             if (articles !== null) {
-                services.getArticles().then(res => {
-                    setArticles(prev => [...prev , ...res.data]);
-                });
+                // services.getArticles().then(res => {
+                //     setArticles(prev => [...prev , ...res.data]);
+                // });
+                setArticles(prev => [...prev , ...articles]);
             }
         };
 
@@ -57,10 +61,6 @@ function Content(props) {
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
     }, [articles]);
-
-    console.log(555, articlesData);
-    const todos = useSelector(state => state.articlesStore)
-    console.log(5552, todos);
 
     return (
         <main className={classes.mainContent}>
