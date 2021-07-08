@@ -5,9 +5,9 @@ export const initialState = {
 }
 
 const articlesReducer = (state = initialState, actions) => {
-    console.log(666, actions);
     switch (actions.type) {
         case GET_ARTICLE_SUCCESSFUL:
+            console.log(666, actions.payload);
             return {
                 ...state,
                 articles: actions.payload

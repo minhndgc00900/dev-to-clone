@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { getArticlesSelector } from '../../redux/articles/selectors';
 import { getArticles } from '../../redux/articles/actions/index';
 import * as services from '../../services/articles/index';
 import ArticleComponent from './article-component/index';
 import { useStyles } from './content.styles';
+import { createStructuredSelector } from 'reselect';
 
 function Content(props) {
     const {
@@ -58,6 +59,8 @@ function Content(props) {
     }, [articles]);
 
     console.log(555, articlesData);
+    const todos = useSelector(state => state.articlesStore)
+    console.log(5552, todos);
 
     return (
         <main className={classes.mainContent}>
@@ -91,12 +94,13 @@ Content.propTypes = {
     articlesData: PropTypes.any,
 }
 
-const mapStateToProps = () => ({
-    articlesData: getArticlesSelector,        
-})
-
 const mapDispatchToProps =  {
     fetchArticle: param => getArticles(param = []),
 }
+
+const mapStateToProps = createStructuredSelector({
+    articlesData: getArticlesSelector,        
+});
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(Content)
