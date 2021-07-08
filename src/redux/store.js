@@ -12,7 +12,7 @@ const rootReducer = () => combineReducers({
     articlesStore: articlesReducer, 
 });
 
-const configStore = state => createStore(rootReducer, state, applyMiddleware(thunk));
+const configStore = state => createStore(rootReducer(), state, applyMiddleware(thunk));
 
 const store = configStore(initialState);
 

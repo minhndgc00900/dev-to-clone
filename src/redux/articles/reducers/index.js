@@ -1,4 +1,4 @@
-import * as actionTypes from '../action-types/index'
+import { GET_ARTICLE_SUCCESSFUL, GET_ARTICLE_FAILURE } from '../action-types/index'
 
 export const initialState = {
     articles: null,
@@ -7,16 +7,16 @@ export const initialState = {
 const articlesReducer = (state = initialState, actions) => {
     console.log(666, actions);
     switch (actions.type) {
-        case actionTypes.GET_ARTICLE_SUCCESSFUL:
-            return ({
+        case GET_ARTICLE_SUCCESSFUL:
+            return {
                 ...state,
                 articles: actions.payload
-            })
-        case actionTypes.GET_ARTICLE_FAILURE:
-            return ({
+            }
+        case GET_ARTICLE_FAILURE:
+            return {
                 ...state,
                 articles: actions.error
-            })
+            }
         default:
             return state
     }
